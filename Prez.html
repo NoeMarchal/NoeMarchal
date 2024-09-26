@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Noé Marchal</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            scroll-behavior: smooth;
+        }
+        header {
+            background-color: #000;
+            color: #fff;
+            width: 100%;
+            padding: 30px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out, padding 0.3s ease-in-out;
+        }
+        header.compact {
+            padding: 10px 0;
+            transform: translateY(-60px);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: 400;
+            transition: opacity 0.3s ease-in-out;
+        }
+        header.compact h1 {
+            opacity: 0;
+            visibility: hidden;
+        }
+        nav {
+            margin-top: 20px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            margin: 0 15px;
+            font-size: 1.1em;
+            padding: 5px 15px;
+            border-radius: 30px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        nav a:hover {
+            background-color: #fff;
+            color: #000;
+        }
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px;
+            width: 100%;
+        }
+        section {
+            padding: 60px;
+            margin-bottom: 40px;
+            background-color: #f5f5f7;
+            border-radius: 20px;
+            transition: box-shadow 0.3s ease;
+        }
+        section:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #000;
+            font-weight: 500;
+        }
+        p, ul {
+            font-size: 1.1em;
+            color: #666;
+            text-align: center;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            padding: 10px 0;
+        }
+        .socials {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .socials a {
+            text-decoration: none;
+            color: #000;
+            margin: 0 20px;
+            font-size: 1.7em;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .socials a:hover {
+            color: #4a90e2;
+            transform: scale(1.1);
+        }
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            background-color: #000;
+            color: #fff;
+            width: 100%;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        footer p {
+            margin: 0;
+            font-size: 1em;
+        }
+
+        /* Bouton du mode sombre */
+        #dark-mode-toggle {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            position: fixed;
+            top: 10px;
+            right: 20px;
+            z-index: 1001;
+        }
+        #dark-mode-toggle:hover {
+            background-color: #357ABD;
+            transform: scale(1.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            section {
+                padding: 40px;
+            }
+            h2 {
+                font-size: 1.8em;
+            }
+            p, ul {
+                font-size: 1em;
+            }
+            nav a {
+                font-size: 0.9em;
+                padding: 5px 10px;
+            }
+            #dark-mode-toggle {
+                padding: 8px 16px;
+                font-size: 0.9em;
+            }
+        }
+
+        /* Mode sombre */
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+        header.dark-mode, footer.dark-mode {
+            background-color: #000;
+            color: #fff;
+        }
+        nav a.dark-mode {
+            color: #fff;
+        }
+        section.dark-mode {
+            background-color: #444;
+            color: #fff;
+            box-shadow: none;
+        }
+        section.dark-mode:hover {
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+        }
+        .socials a.dark-mode {
+            color: #fff;
+        }
+        .socials a.dark-mode:hover {
+            color: #4a90e2;
+        }
+        #progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 5px;
+        background-color: #4a90e2;
+        z-index: 1001;
+        transition: width 0.1s ease;
+    }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Noé Marchal</h1>
+    <nav>
+        <a href="#about">À propos</a>
+        <a href="#skills">Compétences</a>
+        <a href="#projects">Projets</a>
+        <a href="#socials">Réseaux sociaux</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<!-- Bouton pour basculer en mode sombre -->
+<button id="dark-mode-toggle">Mode Sombre</button>
+
+<main>
+    <section id="about">
+        <h2>À propos de moi</h2>
+        <p>Je suis passionné par [votre domaine d'intérêt]. J'aime [vos loisirs ou passions].</p>
+    </section>
+
+    <section id="skills">
+        <h2>Compétences</h2>
+        <p>Voici quelques compétences que je maîtrise :</p>
+        <ul>
+            <li>Compétence 1</li>
+            <li>Compétence 2</li>
+            <li>Compétence 3</li>
+            <li>Compétence 4</li>
+        </ul>
+    </section>
+
+    <section id="projects">
+        <h2>Projets</h2>
+        <p>Découvrez quelques projets sur lesquels j'ai travaillé :</p>
+        <ul>
+            <li><strong>Projet 1 :</strong> Description du projet 1.</li>
+            <li><strong>Projet 2 :</strong> Description du projet 2.</li>
+            <li><strong>Projet 3 :</strong> Description du projet 3.</li>
+        </ul>
+    </section>
+
+    <section id="socials">
+        <h2>Mes réseaux sociaux</h2>
+        <div class="socials">
+            <a href="https://linkedin.com/in/votreprofil" target="_blank">LinkedIn</a>
+            <a href="https://www.instagram.com/noe__marchal" target="_blank">Instagram</a>
+            <a href="https://github.com/votreprofil" target="_blank">Bereal</a>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>Pour me contacter, envoyez un e-mail à : <a href="mailto:votreemail@example.com">noemarchal59@icloud.com</a></p>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 Noé Marchal. Tous droits réservés.</p>
+</footer>
+
+<script>
+    // Script pour gérer la transformation du header lors du défilement
+    const header = document.querySelector('header');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            header.classList.add('compact');
+        } else {
+            header.classList.remove('compact');
+        }
+    });
+</script>
+<div id="progress-bar"></div>
+
+<script>
+    // Script pour la barre de progression
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (scrollTop / docHeight) * 100;
+        document.getElementById('progress-bar').style.width = progress + '%';
+    });
+</script>
+
+<script>
+    // Script pour basculer entre le mode clair et le mode sombre
+    const toggleButton = document.getElementById('dark-mode-toggle');
+    toggleButton.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    document.querySelector('header').classList.toggle('dark-mode');
+    document.querySelector('footer').classList.toggle('dark-mode');
+    document.querySelectorAll('nav a').forEach(link => link.classList.toggle('dark-mode'));
+    document.querySelectorAll('section').forEach(section => section.classList.toggle('dark-mode'));
+    document.querySelectorAll('.socials a').forEach(link => link.classList.toggle('dark-mode'));
+
+    // Change le texte du bouton en fonction du mode activé
+    if (document.body.classList.contains('dark-mode')) {
+        toggleButton.textContent = 'Mode Clair';  // Quand le mode sombre est activé
+    } else {
+        toggleButton.textContent = 'Mode Sombre';  // Quand le mode clair est activé
+    }
+});
+
+</script>
+</body>
+</html>
